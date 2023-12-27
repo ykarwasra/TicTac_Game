@@ -1,27 +1,6 @@
 import React, { useState } from "react";
-const intialBoard=[
-    [null,null,null],
-    [null,null,null],
-    [null,null,null],
-];
-function Board({onSelect,turn}){
-    let board=intialBoard;
 
-    for(let turn2 of turn){
-        let {square,player}=turn2;
-        let {row,column}=square;
-
-        board[row][column]=player;
-    }
-    //const [board,setBoard]=useState(intialBoard);
-    //function handleClick(rowIndex,columnIndex){
-    //   setBoard((prevBoard)=>{
-    //     const updatedBoard=[...prevBoard.map(innerArray=>[...innerArray])];
-    //   updatedBoard[rowIndex][columnIndex]=activePlayersymbol;
-    // return updatedBoard;
-    //    });
-    //  onSelect();
-    //}
+function Board({onSelect,board}){
     return (
         <ul style={{listStyle:"none", marginTop:"20px", padding:"0px"}}>
             {board.map((row,rowIndex)=>{
