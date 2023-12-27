@@ -3,6 +3,8 @@ import Player from './component/Player.jsx'
 import Title from './component/Title.jsx'
 import Board from './component/Board.jsx'
 import tictac from "./assets/tictac.jpg"
+import { Gameover } from './component/Gameover.jsx'
+
 const intialBoard=[
   [null,null,null],
   [null,null,null],
@@ -55,12 +57,15 @@ function App() {
  let board=intialBoard;
  let winner=null;
  const [turns,setTurns]= useState([]);
+
+    
     for(let turn of turns){
         let {square,player}=turn;
         let {row,column}=square;
 
         board[row][column]=player;
     }
+
     for(let combination of winningCombinations){
       let firstLetter=board[combination[0].row][combination[0].column];
       let secondLetter=board[combination[1].row][combination[1].column];
@@ -70,6 +75,9 @@ function App() {
           winner=firstLetter;
       }
     }
+
+  const draw=turns.length===9?true:false;
+
   function onSelecthandler(rowIndex,columnIndex){
       setTurns((prevTurn)=>{
         let activePlayer="X";
@@ -87,19 +95,19 @@ function App() {
       ]
       return updatedTurn;
       })
-      
   }
+
   return (
     <>
     <div style={{display:"flex",flexDirection:"column",width:"100%",height:"100%",alignItems:"center", paddingTop:"38px",backgroundImage:`url(${tictac})`}}>
       <Title/>
-      <div style={{display:'flex', justifyContent:"center", flexDirection:"column", textAlign:"center",background:"#d5d367",width:"295px"}}> 
+      <div style={{display:'flex', justifyContent:"center", flexDirection:"column", textAlign:"center",background:"#d5d367",width:"295px",height:"247px"}}> 
         <div>
           <Player name="player 1" symbol="X"/>
           <Player name="player 2" symbol="O"/>
         </div>
-        you are the winner {winner}!
-        <Board onSelect={onSelecthandler} board={board}/>
+        {(winner!==null ||draw===true) ? <Gameover winner={winner}/>:
+        <Board onSelect={onSelecthandler} board={board} winner={winner}/>}
       </div>
     </div>
     </>

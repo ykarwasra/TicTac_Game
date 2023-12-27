@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Board({onSelect,board}){
+function Board({onSelect,board,winner}){
     return (
         <ul style={{listStyle:"none", marginTop:"20px", padding:"0px"}}>
             {board.map((row,rowIndex)=>{
